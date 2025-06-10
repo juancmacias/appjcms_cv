@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         if(item.getItemId() == R.id.menuinicio){
             web.loadUrl("file:///android_asset/principal.md");
         }else if(item.getItemId() == R.id.menupolitica){
-            web.loadUrl("file:///android_asset/politica_privacidad.md");
+            web.loadUrl("file:///android_asset/politica.md");
         }else{
             return super.onOptionsItemSelected(item);
         }
