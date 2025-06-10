@@ -1,5 +1,5 @@
 [versions]
-agp = "8.5.0"
+agp = "8.6.0"
 appcompatVersion = "1.6.1"
 commonmark = "0.21.0"
 junit = "4.13.2"

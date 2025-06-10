@@ -43,8 +43,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.menuinicio){
             web.loadUrl("file:///android_asset/principal.md");
-        }else if(item.getItemId() == R.id.menupolitica){
+        }else if(item.getItemId() == R.id.menupolitica) {
             web.loadUrl("file:///android_asset/politica.md");
+        }else if(item.getItemId() == R.id.list){
+            Intent intent = new Intent(this, ListActivity.class);
+            startActivity(intent);
         }else{
             return super.onOptionsItemSelected(item);
         }
