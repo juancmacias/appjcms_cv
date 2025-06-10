@@ -1,5 +1,7 @@
 [versions]
 agp = "8.5.0"
+appcompatVersion = "1.6.1"
+commonmark = "0.21.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -10,6 +12,8 @@ navigationFragment = "2.9.0"
 navigationUi = "2.9.0"
 
 [libraries]
+appcompat-v161 = { module = "androidx.appcompat:appcompat", version.ref = "appcompatVersion" }
+commonmark = { module = "org.commonmark:commonmark", version.ref = "commonmark" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

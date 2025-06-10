@@ -46,5 +46,8 @@ Esta web no utiliza cookies ni tecnologías de seguimiento de terceros.
 
 9. Reclamaciones ante la autoridad de control
 Si considera que se ha vulnerado alguno de sus derechos, puede presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD): www.aepd.es</string>
+    <string name="vPolitica">Ver política</string>
+    <string name="inicio">Inicio</string>
+    <string name="politica">Política</string>
 
 </resources>
