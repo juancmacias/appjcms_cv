@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private WebView webView;
     private Toolbar toolbar;
     private WebView web;
     private String url = "http://www.juancarlosmacias.es/";

@@ -2,26 +2,89 @@ package com.jcms.juancarlosmacias;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.WebView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
+    private RecyclerView recyclerView;
+    private ItemAdapter adapter;
+    private List<Item> itemList = new ArrayList<>();
+    private RequestQueue requestQueue;
+    private String jsonUrl = "http://www.juancarlosmacias.es/api/porfolio/datos_proyectos.json"; // Reemplaza con tu URL
     private Toolbar toolbar;
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lister_activity);
-
-        toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar_a);
         setSupportActionBar(toolbar);
+        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        adapter = new ItemAdapter(itemList);
+        recyclerView.setAdapter(adapter);
 
-
-
+        requestQueue = Volley.newRequestQueue(this);
+        parseJSON();
     }
 
+    private void parseJSON() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, jsonUrl, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject item = response.getJSONObject(i);
+
+                                int id = item.getInt("id");
+                                String imgPath = item.getString("imgPath");
+                                boolean isBlog = item.getBoolean("isBlog");
+                                String title = item.getString("title");
+                                String description = item.getString("description");
+                                String ghLink = item.optString("ghLink", "");
+                                String demoLink = item.getString("demoLink");
+
+                                itemList.add(new Item(id, imgPath, isBlog, title, description, ghLink, demoLink));
+                            }
+
+                            adapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        requestQueue.add(request);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.menuinicio || item.getItemId() == R.id.menupolitica){

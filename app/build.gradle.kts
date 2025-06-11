@@ -10,8 +10,8 @@ android {
         applicationId = "com.jcms.juancarlosmacias"
         minSdk = 24
         targetSdk = 34
-        versionCode = 3
-        versionName = "1.0.3"
+        versionCode = 4
+        versionName = "1.0.4"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -46,5 +46,7 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation(libs.commonmark)
     implementation(libs.appcompat.v161)
-
+    implementation("com.android.volley:volley:1.2.1")
+    implementation("com.squareup.picasso:picasso:2.71828")
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
 }
