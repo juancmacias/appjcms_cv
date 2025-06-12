@@ -20,13 +20,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
+import com.jcms.juancarlosmacias.app.AppConfig;
 
 public class ListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ItemAdapter adapter;
     private List<Item> itemList = new ArrayList<>();
     private RequestQueue requestQueue;
-    private String jsonUrl = "http://www.juancarlosmacias.es/api/porfolio/datos_proyectos.json"; // Reemplaza con tu URL
+
     private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +47,12 @@ public class ListActivity extends AppCompatActivity {
     }
 
     private void parseJSON() {
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, jsonUrl, null,
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, AppConfig.JSONURL, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            for (int i = 0; i < response.length(); i++) {
+                            for (int i = response.length() - 1; i >= 0; i--) {
                                 JSONObject item = response.getJSONObject(i);
 
                                 int id = item.getInt("id");
@@ -87,9 +88,10 @@ public class ListActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.menuinicio || item.getItemId() == R.id.menupolitica){
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+        if(item.getItemId() == R.id.menuinicio){
+            sendIntent(AppConfig.INICIO);
+        }else if(item.getItemId() == R.id.menupolitica) {
+            sendIntent(AppConfig.POLICITA);
         }else if(item.getItemId() == R.id.list){
             Intent intent = new Intent(this, ListActivity.class);
             startActivity(intent);
@@ -97,5 +99,10 @@ public class ListActivity extends AppCompatActivity {
             return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+    public void sendIntent(String url){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("url", url);
+        startActivity(intent);
     }
 }

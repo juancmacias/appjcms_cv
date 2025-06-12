@@ -69,7 +69,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         }
     }
     private String convertToFullUrl(String relativePath) {
-        String baseUrl = "http://juancarlosmacias.es/";
+        String baseUrl = "https://www.juancarlosmacias.es/";
 
         // Eliminar "../" de la ruta relativa
         String cleanPath = relativePath.replaceAll("\\.\\./", "");
